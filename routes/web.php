@@ -1,6 +1,7 @@
 <?php
 
 use App\Http\Controllers\HomepageController;
+use App\Http\Controllers\LinkController;
 use App\Http\Controllers\LoginController;
 use App\Http\Controllers\LogoutController;
 use Illuminate\Support\Facades\Route;
@@ -20,4 +21,8 @@ Route::middleware("guest")->group(function () {
 Route::middleware("auth")->group(function () {
    Route::get("/logout", LogoutController::class)->name("logout");
    Route::get("/", HomepageController::class)->name("homepage");
+
+   Route::get("/links/create", [LinkController::class, "index"])->name("links.create");
+
+   Route::post("/links/create", [LinkController::class, "create"]);
 });

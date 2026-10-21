@@ -10,29 +10,11 @@
       <div class="flex-1 flex flex-col items-center justify-center gap-12 p-8 h-full">
          <img src="{{ asset('images/logo.svg') }}" alt="background">
 
-         <form action={{ route("login") }} method="post" class="max-w-100.5 w-full flex flex-col gap-4 items-center">
-            @csrf
-
+         <x-form :route="route('login')" post class="max-w-100.5 w-full items-center">
             <x-title content="Acessar conta" />
 
-            <fieldset class="fieldset w-full">
-               <label class="label" for="email">E-mail</label>
-               <input type="email" id="email" name="email" class="input w-full" placeholder="Digite seu e-mail" />
-
-               @error("email")
-                  <span class="text-error text-sm">{{ $message }}</span>
-               @enderror
-            </fieldset>
-
-            <fieldset class="fieldset w-full">
-               <label class="label" for="password">Senha</label>
-               <input type="password" id="password" name="password" class="input w-full"
-                  placeholder="Insira sua senha" />
-
-               @error("password")
-                  <span class="text-error text-sm">{{ $message }}</span>
-               @enderror
-            </fieldset>
+            <x-input name="email" placeholder="Digite seu e-mail" label="E-mail" />
+            <x-input name="password" placeholder="Insira sua senha" label="Senha" type="password" />
 
             @if($message = session()->get("message"))
                <div role="alert" class="alert alert-error alert-soft w-full">
@@ -48,7 +30,7 @@
             <button class="btn btn-active btn-primary rounded-full">
                Acessar conta
             </button>
-         </form>
+         </x-form>
 
 
 

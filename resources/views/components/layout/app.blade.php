@@ -1,5 +1,5 @@
 <!DOCTYPE html>
-<html lang="{{ config('app.locale') }}" class="h-full" data-theme="sunset">
+<html lang="{{ config('app.locale') }}" class="h-full bg-base-300" data-theme="sunset">
 
 <head>
    <meta charset="UTF-8">
