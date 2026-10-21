@@ -1,4 +1,4 @@
-<x-layout.app>
+<x-layout.guest>
 
 
    <section class="flex flex-row gap-4 items-center h-screen">
@@ -14,10 +14,6 @@
             @csrf
 
             <x-title content="Acessar conta" />
-            {{-- <div class="w-full">
-               <h2 class="card-title text-neutral-100">Acessar conta</h2>
-               <div class="h-1 w-6 bg-primary"></div>
-            </div> --}}
 
             <fieldset class="fieldset w-full">
                <label class="label" for="email">E-mail</label>
@@ -57,10 +53,9 @@
 
 
          <p class="text-neutral-500">Não tem cadastro? <a href="{{ route("register") }}"
-               class="text-neutral-100 hover:underline">Criar
-               conta</a></p>
+               class="text-neutral-100 hover:underline">
+               Criar conta</a>
+         </p>
       </div>
    </section>
-
-
-</x-layout.app>
+</x-layout.guest>
