@@ -45,7 +45,7 @@
             </button>
          </a>
 
-         <a href="">
+         <a href="{{ route("profile") }}">
             <button class="btn btn-circle btn-ghost">
                <i class="ph ph-user"></i>
             </button>
