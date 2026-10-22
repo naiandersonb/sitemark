@@ -2,7 +2,10 @@
 
 namespace App\Http\Controllers;
 
+use App\Http\Requests\CreateLinkRequest;
 use App\Models\Link;
+use App\Models\User;
+use App\Stream;
 use Illuminate\Http\Request;
 
 class LinkController extends Controller
@@ -12,23 +15,30 @@ class LinkController extends Controller
     */
    public function index()
    {
-      $streams = [
-         "prime_video" => "Prime video",
-         "hbo_max" => "HBO Max",
-         "netflix" => "Netflix",
-         "apple_tv" => "Apple TV",
-         "paramound" => "Paramound"
-      ];
-
-      return view("links.create", compact("streams"));
+      return view("links.create", [
+         "streams" => Stream::cases(),
+      ]);
    }
 
    /**
     * Show the form for creating a new resource.
     */
-   public function create()
+   public function create(CreateLinkRequest $request)
    {
-      return back();
+      /**
+       * @var User $user
+       */
+      $user = auth()->user();
+
+      $data = $request->validated();
+
+      if ($file = $request->image) {
+         $data["image"] = $file->store("images", "public");
+      }
+
+      $user->links()->create($data);
+
+      return to_route("homepage");
    }
 
    /**

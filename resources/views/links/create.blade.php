@@ -8,8 +8,8 @@
          <fieldset class="fieldset w-full">
             <label class="label">Plataforma de streaming</label>
             <select class="select w-full" name="stream">
-               @foreach ($streams as $key => $value)
-                  <option value="{{ $key }}">{{ $value }}</option>
+               @foreach ($streams as $stream)
+                  <option value="{{ $stream->value }}">{{ $stream->label() }}</option>
                @endforeach
             </select>
          </fieldset>
@@ -19,13 +19,13 @@
 
       <fieldset class="fieldset w-full">
          <legend class="fieldset-legend">Imagem</legend>
-         <input type="file" class="file-input w-full" />
+         <input name="image" type="file" class="file-input w-full" />
       </fieldset>
 
 
       <div class="w-full flex flex-row items-center justify-end gap-2">
          <a href="{{ route("homepage") }}">
-            <button class="btn rounded-full">
+            <button class="btn rounded-full" type="button">
                Voltar
             </button>
          </a>

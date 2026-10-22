@@ -11,7 +11,7 @@
    </div>
 
    <div class="w-full mt-10 flex flex-col gap-4 mb-20">
-      @foreach (range(1, random_int(5, 20)) as $item)
+      @foreach ($links as $item)
          @php
             $variants = ["badge-primary", "badge-secondary", "badge-accent", "badge-info", "badge-success", "badge-warning"];
             $badgeClass = $variants[array_rand($variants)];
@@ -28,13 +28,22 @@
             </div>
 
             <div class="flex-1 min-w-0 flex flex-row items-center gap-2">
+               <div class="avatar avatar-placeholder">
+                  <div class="mask mask-squircle w-12 relative bg-primary/15 text-primary">
+                     <span class="text-xl">{{ mb_strtoupper(mb_substr($item->title, 0, 1)) }}</span>
+                     @if($item->image)
+                        <img src="{{ Storage::url($item->image) }}" alt="imagem do link" class="absolute inset-0"
+                           onerror="this.remove()" />
+                     @endif
+                  </div>
+               </div>
                <div class="flex-1 min-w-0">
-                  <p class="text-neutral-50 font-medium">Anéis do poder
-                     <span class="badge {{ $badgeClass }} text-xs">Prime video</span>
+                  <p class="text-neutral-50 font-medium">{{$item->title}}
+                     <span class="badge {{ $badgeClass }} text-xs">{{ $item->stream->label() }}</span>
                   </p>
 
                   <p class="text-sm truncate text-neutral-400 mt-1">
-                     https://www.primevideo.com/region/na/detail/amzn1.dv.gti.ffefa84e-6092-433b-9f8a-79c6dd7551ae
+                     {{ $item->url }}
                   </p>
                </div>
 
