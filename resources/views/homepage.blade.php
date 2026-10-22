@@ -19,15 +19,18 @@
             @endphp
 
             <article class="flex flex-row items-center rounded-field gap-4 w-full p-4 bg-base-200">
-               <div>
+               <div class="flex flex-row items-center gap-1">
                   @if($loop->first)
                      <button class="btn btn-circle btn-dash size-8" disabled>
                         <i class="ph ph-arrow-up"></i>
                      </button>
                   @else
-                     <button class="btn btn-circle btn-dash size-8">
-                        <i class="ph ph-arrow-up"></i>
-                     </button>
+                     <x-form put :route="route('up.link', $item)" put>
+                        <button class="btn btn-circle btn-dash size-8">
+                           <i class="ph ph-arrow-up"></i>
+                        </button>
+                     </x-form>
+
                   @endif
 
                   @if($loop->last)
@@ -35,13 +38,12 @@
                         <i class="ph ph-arrow-down"></i>
                      </button>
                   @else
-                     <button class="btn btn-circle btn-dash size-8">
-                        <i class="ph ph-arrow-down"></i>
-                     </button>
+                     <x-form put :route="route('down.link', $item)" put>
+                        <button class="btn btn-circle btn-dash size-8">
+                           <i class="ph ph-arrow-down"></i>
+                        </button>
+                     </x-form>
                   @endif
-
-
-
                </div>
 
                <div class="flex-1 min-w-0 flex flex-row items-center gap-2">

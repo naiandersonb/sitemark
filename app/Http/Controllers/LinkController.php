@@ -7,6 +7,7 @@ use App\Http\Requests\EditLinkRequest;
 use App\Models\Link;
 use App\Models\User;
 use App\Stream;
+use Illuminate\Http\RedirectResponse;
 use Illuminate\Http\Request;
 
 class LinkController extends Controller
@@ -26,8 +27,6 @@ class LinkController extends Controller
     */
    public function store(CreateLinkRequest $request)
    {
-
-
       if ($request->tryToCreateLink()) {
          return to_route("homepage");
       }
@@ -59,5 +58,29 @@ class LinkController extends Controller
    {
       $link->delete();
       return back()->with(["message" => "O link foi deletado"]);
+   }
+
+   public function up(Link $link): RedirectResponse
+   {
+      return $this->moveLink($link, -1);
+   }
+
+   public function down(Link $link): RedirectResponse
+   {
+      return $this->moveLink($link, 1);
+   }
+
+   private function moveLink(Link $link, int $offset): RedirectResponse
+   {
+      /**
+       * @var User $user
+       */
+      $user = auth()->user();
+
+      abort_unless($link->user()->is($user), 404);
+
+      $user->moveLink($link, $offset);
+
+      return back();
    }
 }

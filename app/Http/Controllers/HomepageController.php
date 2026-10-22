@@ -16,7 +16,7 @@ class HomepageController extends Controller
       $user = auth()->user();
 
       return view("homepage", [
-         "links" => $user->links()->orderBy("sort")->get() ?? []
+         "links" => $user->links()->orderBy("sort")->orderBy("id")->get() ?? []
       ]);
    }
 }

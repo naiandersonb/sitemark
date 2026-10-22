@@ -3,6 +3,8 @@
 namespace Database\Factories;
 
 use App\Models\Link;
+use App\Models\User;
+use App\Stream;
 use Illuminate\Database\Eloquent\Factories\Factory;
 
 /**
@@ -18,7 +20,10 @@ class LinkFactory extends Factory
     public function definition(): array
     {
         return [
-            //
+            'user_id' => User::factory(),
+            'title' => fake()->sentence(3),
+            'stream' => fake()->randomElement(Stream::cases()),
+            'url' => fake()->url(),
         ];
     }
 }

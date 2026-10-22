@@ -1,5 +1,6 @@
 <?php
 
+use App\Models\Link;
 use App\Models\User;
 use App\Stream;
 use Illuminate\Foundation\Testing\RefreshDatabase;
@@ -23,6 +24,19 @@ test('a link is created with its image and the user is redirected to the homepag
     $link = $user->links()->sole();
     expect($link->title)->toBe('Breaking Bad');
     Storage::disk('public')->assertExists($link->image);
+});
+
+test('a new link is placed after the existing links', function () {
+    $user = User::factory()->create();
+    Link::factory()->for($user)->create(['sort' => 4]);
+
+    $this->actingAs($user)->post(route('links.create'), [
+        'title' => 'Breaking Bad',
+        'stream' => Stream::Netflix->value,
+        'url' => 'https://netflix.com/breaking-bad',
+    ]);
+
+    expect($user->links()->latest('id')->first()->sort)->toBe(5);
 });
 
 test('the form shows why an image that failed to upload was rejected', function () {

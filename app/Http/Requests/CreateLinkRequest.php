@@ -45,6 +45,7 @@ class CreateLinkRequest extends FormRequest
       $user = auth()->user();
 
       $data = $this->validated();
+      $data["sort"] = $user->links()->max("sort") + 1;
 
       if ($file = $this->image) {
          $data["image"] = $file->store("images", "public");

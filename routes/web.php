@@ -30,6 +30,10 @@ Route::middleware("auth")->group(function () {
    Route::get("/links/{link}/edit", [LinkController::class, "edit"])->name("links.edit");
    Route::put("/links/{link}/edit", [LinkController::class, "update"]);
    Route::delete("/links/{link}", [LinkController::class, "destroy"])->name("links.destroy");
+
+   Route::put("/link/{link}/up", [LinkController::class, "up"])->name("up.link");
+   Route::put("/link/{link}/down", [LinkController::class, "down"])->name("down.link");
+
    // -----------------------------
 
    Route::get("/profile", [ProfileController::class, "index"])->name("profile");
