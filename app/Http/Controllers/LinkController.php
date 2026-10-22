@@ -3,6 +3,7 @@
 namespace App\Http\Controllers;
 
 use App\Http\Requests\CreateLinkRequest;
+use App\Http\Requests\EditLinkRequest;
 use App\Models\Link;
 use App\Models\User;
 use App\Stream;
@@ -25,20 +26,13 @@ class LinkController extends Controller
     */
    public function store(CreateLinkRequest $request)
    {
-      /**
-       * @var User $user
-       */
-      $user = auth()->user();
 
-      $data = $request->validated();
 
-      if ($file = $request->image) {
-         $data["image"] = $file->store("images", "public");
+      if ($request->tryToCreateLink()) {
+         return to_route("homepage");
       }
 
-      $user->links()->create($data);
-
-      return to_route("homepage");
+      return back()->with(["message" => "falha ao criar o link"]);
    }
 
    /**
@@ -46,15 +40,16 @@ class LinkController extends Controller
     */
    public function edit(Link $link)
    {
-      //
+      return view("links.edit", [
+         "link" => $link,
+         "streams" => Stream::cases()
+      ]);
    }
 
-   /**
-    * Update the specified resource in storage.
-    */
-   public function update(Request $request, Link $link)
+   public function update(EditLinkRequest $request, Link $link)
    {
-      //
+      $link->fill($request->validated())->save();
+      return to_route("homepage")->with("message", "Link alterado com sucesso");
    }
 
    /**

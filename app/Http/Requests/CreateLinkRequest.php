@@ -2,6 +2,7 @@
 
 namespace App\Http\Requests;
 
+use App\Models\User;
 use App\Stream;
 use Illuminate\Contracts\Validation\ValidationRule;
 use Illuminate\Foundation\Http\FormRequest;
@@ -34,5 +35,23 @@ class CreateLinkRequest extends FormRequest
          "url" => ["required", "url"],
          "image" => ["nullable", "image"]
       ];
+   }
+
+   public function tryToCreateLink()
+   {
+      /**
+       * @var User $user
+       */
+      $user = auth()->user();
+
+      $data = $this->validated();
+
+      if ($file = $this->image) {
+         $data["image"] = $file->store("images", "public");
+      }
+
+      $user->links()->create($data);
+
+      return true;
    }
 }

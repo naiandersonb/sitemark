@@ -20,12 +20,28 @@
 
             <article class="flex flex-row items-center rounded-field gap-4 w-full p-4 bg-base-200">
                <div>
-                  <button class="btn btn-circle btn-dash size-8">
-                     <i class="ph ph-arrow-up"></i>
-                  </button>
-                  <button class="btn btn-circle btn-dash size-8">
-                     <i class="ph ph-arrow-down"></i>
-                  </button>
+                  @if($loop->first)
+                     <button class="btn btn-circle btn-dash size-8" disabled>
+                        <i class="ph ph-arrow-up"></i>
+                     </button>
+                  @else
+                     <button class="btn btn-circle btn-dash size-8">
+                        <i class="ph ph-arrow-up"></i>
+                     </button>
+                  @endif
+
+                  @if($loop->last)
+                     <button class="btn btn-circle btn-dash size-8" disabled>
+                        <i class="ph ph-arrow-down"></i>
+                     </button>
+                  @else
+                     <button class="btn btn-circle btn-dash size-8">
+                        <i class="ph ph-arrow-down"></i>
+                     </button>
+                  @endif
+
+
+
                </div>
 
                <div class="flex-1 min-w-0 flex flex-row items-center gap-2">
@@ -48,18 +64,20 @@
                      </p>
                   </div>
 
-                  <div>
-                     <button class="btn btn-ghost btn-circle">
-                        <i class="ph ph-pencil-simple-line"></i>
-                     </button>
+                  <div class="flex flex-row gap-4 items-center">
+                     <a href="{{ route("links.edit", $item) }}">
+                        <button class="btn btn-ghost btn-circle">
+                           <i class="ph ph-pencil-simple-line"></i>
+                        </button>
+                     </a>
 
-                     {{-- <x-form delete :route="route('links.destroy', $item)">
-                        <button class="btn btn-ghost btn-circle"
-                           onsubmit="return confirm('Tem certeza que quer remover o link?')">
+
+                     <x-form delete :route="route('links.destroy', $item)"
+                        onsubmit="return confirm('Tem certeza que quer remover o link?')">
+                        <button class="btn btn-ghost btn-circle">
                            <i class="ph ph-trash"></i>
                         </button>
-                     </x-form> --}}
-
+                     </x-form>
                   </div>
                </div>
             </article>

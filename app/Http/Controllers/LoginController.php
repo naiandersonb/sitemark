@@ -15,7 +15,7 @@ class LoginController extends Controller
    public function login(LoginRequest $request)
    {
       if ($request->attempt()) {
-         return view("homepage");
+         return to_route("homepage");
       }
       ;
 
