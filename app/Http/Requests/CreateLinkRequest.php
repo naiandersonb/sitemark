@@ -5,8 +5,12 @@ namespace App\Http\Requests;
 use App\Stream;
 use Illuminate\Contracts\Validation\ValidationRule;
 use Illuminate\Foundation\Http\FormRequest;
+use Illuminate\Http\UploadedFile;
 use Illuminate\Validation\Rule;
 
+/**
+ * @property-read UploadedFile $image
+ */
 class CreateLinkRequest extends FormRequest
 {
    /**

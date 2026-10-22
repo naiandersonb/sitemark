@@ -11,9 +11,9 @@ use Illuminate\Http\Request;
 class LinkController extends Controller
 {
    /**
-    * Display a listing of the resource.
+    * Show the form for creating a new resource.
     */
-   public function index()
+   public function create()
    {
       return view("links.create", [
          "streams" => Stream::cases(),
@@ -21,9 +21,9 @@ class LinkController extends Controller
    }
 
    /**
-    * Show the form for creating a new resource.
+    * Store a newly created resource in storage.
     */
-   public function create(CreateLinkRequest $request)
+   public function store(CreateLinkRequest $request)
    {
       /**
        * @var User $user
@@ -39,22 +39,6 @@ class LinkController extends Controller
       $user->links()->create($data);
 
       return to_route("homepage");
-   }
-
-   /**
-    * Store a newly created resource in storage.
-    */
-   public function store(Request $request)
-   {
-      //
-   }
-
-   /**
-    * Display the specified resource.
-    */
-   public function show(Link $link)
-   {
-      //
    }
 
    /**
@@ -78,6 +62,7 @@ class LinkController extends Controller
     */
    public function destroy(Link $link)
    {
-      //
+      $link->delete();
+      return back()->with(["message" => "O link foi deletado"]);
    }
 }
